@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title></title>
+  </head>
+  <body>
+    <div id="container">
+      <textarea
+        id="linksTextarea"
+        placeholder="Вставьте ссылки здесь..."
+        rows="12"
+      ></textarea>
+      <div class="linkCount">
+        Количество вставленных ссылок: <span id="linkCount">0</span>
+      </div>
+      <button class="button createButtons" onclick="createButtons()">
+        Создать кнопки
+      </button>
+
+      <button
+        id="clearButton"
+        class="button"
+        onclick="clearLinks()"
+        title="Очистить ссылки"
+      >
+        <img
+          src="https://img.icons8.com/metro/26/000000/trash.png"
+          alt="Мусорка"
+        />
+      </button>
+      <div id="buttonsContainer"></div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
