@@ -1,16 +1,23 @@
+ul{
+list-style: none;
+
+}
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 75px;
+   width: 1400px;
+   margin: auto;
 }
 
 #container {
+    
+    text-align: center;
     width: 525px;
-    margin: 0 auto;
+    margin: 75px auto;
     border: 1px solid #ccc;
     padding: 25px;
     box-sizing: border-box;
     position: relative;
+    border-radius: 5px; 
 }
 
 textarea {
@@ -23,7 +30,8 @@ textarea {
 
 .button {
     display: block;
-    width: 100%;
+    width: 75%;
+    margin: auto;
     padding: 10px;
     box-sizing: border-box;
     margin-bottom: 10px;
@@ -41,7 +49,7 @@ textarea {
 #clearButton {
     position: absolute;
     width: 10%;
-    top: 0px;
+    top: 15px;
     right: -10px;
     cursor: pointer;
     background: none;
@@ -75,5 +83,103 @@ font-weight: 700;
   }
   .duplicate-info {
     display: block;
-    padding: 5px 0 0 0;
+    padding: 10px 0 0 0;
   }
+
+  #copyButton {
+    width: 10%;
+    cursor: pointer;
+    background: none;
+    border: none;
+      position: absolute;
+    top: 50px;
+    right: -10px;
+
+}
+
+#copyButton img {
+    width: 20px;
+    height: 20px;
+}
+#copyButton img:hover {
+    filter: invert(20%) sepia(92%) saturate(2696%) hue-rotate(220deg) brightness(120%) contrast(90%);
+}
+
+.notification_copy {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 36, 166, 0.8); /* Зеленый цвет */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    display: none; /* По умолчанию скрываем */
+}
+
+.notification_copy.show {
+    display: block; /* Показываем уведомление */
+}
+.notification_del {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 0, 0, 0.8); /* Красный цвет */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    display: none; /* По умолчанию скрываем */
+}
+
+.notification_del.show {
+    display: block; /* Показываем уведомление */
+}
+.notification_create {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 128, 0, 0.8); /* Зеленый цвет */
+
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 9999;
+    display: none; /* По умолчанию скрываем */
+}
+
+.notification_create.show {
+    display: block; /* Показываем уведомление */
+}
+textarea:focus {
+    outline: none; /* Убирает контур фокуса */
+}
+.version{
+    margin: 0;
+    padding: 0;
+    color: #b0b0b0;
+    position: relative;
+
+}
+.notCreatedText{
+    padding: 5px;
+margin-top: -26px; 
+margin-left: -365px;
+word-wrap: break-word;
+overflow-wrap: break-word;
+  width: auto;
+  max-width: 300px;
+  position: absolute;
+  text-align: left;
+}
+
+.notCreatedTextEl{
+    padding: 5px; 
+font-size: 12px;
+color: #b0b0b0;
+
+}
+.missing-links-span{
+    font-size: 15px;
+    text-decoration: underline;
+}

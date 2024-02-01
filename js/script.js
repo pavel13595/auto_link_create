@@ -1,7 +1,6 @@
 let buttonCount = 0;
 let buttonsCreated = false;
 
-// Функция для обновления количества вставленных ссылок и проверки дублей
 function updateLinkCount() {
   const linksTextarea = document.getElementById("linksTextarea");
   const text = linksTextarea.value;
@@ -14,35 +13,38 @@ function updateLinkCount() {
       : "Дублей нет.";
 
   const linkCountElement = document.getElementById("linkCount");
-  linkCountElement.textContent = links.length + ". ";
+  linkCountElement.textContent = links.length + "";
 
-  // Устанавливаем зеленый цвет текста, если дублей нет, и красный в противном случае
   linkCountElement.style.color = duplicateRanges.length > 0 ? "red" : "green";
+
+  linksTextarea.style.border =
+    text.trim() === ""
+      ? "2px solid black"
+      : duplicateRanges.length > 0
+      ? "2px solid red"
+      : "2px solid #09af4c";
 
   const duplicateSpan = document.createElement("span");
   duplicateSpan.textContent = duplicateText;
-
-  // Добавляем класс для строки с информацией о дубликатах ссылок
   duplicateSpan.classList.add("duplicate-info");
-
   linkCountElement.appendChild(duplicateSpan);
 }
 
-// Функция для извлечения ссылок из текста
 function extractLinks(text) {
   const lines = text.split("\n");
   const urls = [];
 
   lines.forEach((line) => {
-    if (isValidURL(line.trim())) {
-      urls.push(line.trim());
+    if (line.trim() !== "") {
+      if (isValidURL(line.trim())) {
+        urls.push(line.trim());
+      }
     }
   });
 
   return urls;
 }
 
-// Функция для поиска дублирующихся ссылок и возвращения диапазонов повторяющихся индексов
 function findDuplicateRanges(array) {
   const duplicates = {};
   const duplicateRanges = [];
@@ -61,108 +63,139 @@ function findDuplicateRanges(array) {
   return duplicateRanges;
 }
 
-// Привязываем функцию к событию input
 document.getElementById("linksTextarea").addEventListener("input", function () {
   updateLinkCount();
-  // Проверяем, если текстовое поле пустое, то очищаем кнопки
   if (this.value.trim() === "") {
     clearButtons();
+    const createButtonsButton = document.querySelector(".createButtons");
+    createButtonsButton.textContent = "Создать кнопки";
   }
 });
 
-// Функция для очистки кнопок при удалении всех ссылок из текстового поля
 function clearButtons() {
   const buttonsContainer = document.getElementById("buttonsContainer");
   buttonsContainer.innerHTML = "";
   buttonCount = 0;
   buttonsCreated = false;
+  // Очищаем также элемент <ul> с текстом не созданных ссылок
+  document.getElementById("notCreatedText").innerHTML = "";
 }
 
-// Функция для создания кнопок на основе введенных ссылок
 function createButtons() {
+  clearButtons(); // Очищаем список перед созданием нового
   const linksTextarea = document.getElementById("linksTextarea");
-  const links = extractLinks(linksTextarea.value);
+  const text = linksTextarea.value;
+  const notCreatedTextElement = document.getElementById("notCreatedText");
 
-  // Очистим контейнер с кнопками перед созданием новых
   const buttonsContainer = document.getElementById("buttonsContainer");
-  buttonsContainer.innerHTML = "";
+  buttonCount = 0;
 
-  // Создадим кнопки для каждой ссылки
-  links.forEach((link, index) => {
-    const button = document.createElement("button");
-    button.textContent = "Ссылка " + ++buttonCount;
-    button.className = "button";
-    button.onclick = createButtonClickHandler(index);
+  const lines = text.split("\n");
+  let missingLinksSpanCreated = false; // Флаг для отслеживания создания span для пропущенных ссылок
 
-    buttonsContainer.appendChild(button);
+  lines.forEach((line) => {
+    if (line.trim() !== "") {
+      if (isValidURL(line.trim())) {
+        const button = document.createElement("button");
+        button.textContent = "Ссылка " + ++buttonCount;
+        button.className = "button";
+        button.onclick = createButtonClickHandler(line.trim());
+        buttonsContainer.appendChild(button);
+        showNotification_create();
+      } else {
+        // Проверяем, создан ли уже span для пропущенных ссылок
+        if (!missingLinksSpanCreated) {
+          const missingLinksSpan = document.createElement("span");
+          missingLinksSpan.textContent = "Пропущенный текст:";
+          missingLinksSpan.classList.add("missing-links-span");
+          notCreatedTextElement.appendChild(missingLinksSpan);
+          missingLinksSpanCreated = true; // Устанавливаем флаг в true, чтобы создать только один span
+        }
+
+        const listItem = document.createElement("li");
+        listItem.textContent = `—  ${line}`;
+        listItem.classList.add("notCreatedTextEl"); // Присваиваем класс
+        notCreatedTextElement.appendChild(listItem); // Добавляем элемент <li> в существующий <ul>
+      }
+    }
   });
 
-  // Обновляем количество ссылок после создания кнопок
+  // Добавляем стили к элементу с классом "notCreatedText"
+  notCreatedTextElement.style.borderRadius = "5px"; // Добавляем стили для элемента
+  notCreatedTextElement.style.border = "1px solid #ccc";
+
   updateLinkCount();
-
-  // Автоматически увеличиваем высоту textarea в зависимости от количества введенного текста
-  //const rows = linksTextarea.value.split("\n").length;
-  // const minRows = 12;
-  // const maxRows = 30;
-  // linksTextarea.rows = Math.min(Math.max(rows, minRows), maxRows);
-
-  // Помечаем, что кнопки уже созданы
   buttonsCreated = true;
 
-  // Меняем текст кнопки
   const createButtonsButton = document.querySelector(".createButtons");
   createButtonsButton.textContent = "Пересоздать";
 }
 
-// Функция для проверки валидности URL
 function isValidURL(url) {
   const pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // протокол
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // доменное имя
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // или IP (v4) адрес
-      "(\\:\\d+)?(\\/[-a-z\\d%@_.~+]*)*" + // порт и путь
-      "(\\?[;&a-z\\d%@_.,~+=-]*)?" + // параметры запроса
+    "^(https?:\\/\\/)?" +
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+      "((\\d{1,3}\\.){3}\\d{1,3}))" +
+      "(\\:\\d+)?(\\/[-a-z\\d%@_.~+]*)*" +
+      "(\\?[;&a-z\\d%@_.,~+=-]*)?" +
       "(\\#[-a-z\\d_]*)?$",
     "i"
-  ); // фрагмент
+  );
   return pattern.test(url);
 }
 
-// Функция для создания обработчика события для каждой кнопки
-function createButtonClickHandler(index) {
+function createButtonClickHandler(link) {
   return function () {
-    // Проверяем, был ли уже нажат этот элемент
     if (!this.classList.contains("clicked")) {
-      this.classList.add("clicked"); // Добавляем класс
-      this.style.backgroundColor = "red"; // Меняем цвет на красный
-      openLink(index);
+      this.classList.add("clicked");
+      this.style.backgroundColor = "red";
+      openLink(link);
     }
   };
 }
 
-// Функция для отображения ссылок при нажатии на кнопки
-function openLink(buttonNumber) {
-  const linksTextarea = document.getElementById("linksTextarea");
-  const links = extractLinks(linksTextarea.value);
-
-  // Проверка наличия ссылки перед открытием
-  if (buttonNumber < links.length) {
-    const linkToOpen = links[buttonNumber];
-    window.open(linkToOpen, "_blank");
-  } else {
-    alert("Ссылка не найдена!");
-  }
+function openLink(link) {
+  window.open(link, "_blank");
 }
 
-// Функция для очистки окна с ссылками
 function clearLinks() {
   document.getElementById("linksTextarea").value = "";
-  document.getElementById("buttonsContainer").innerHTML = "";
-  buttonCount = 0; // Сбрасываем счетчик кнопок
-  buttonsCreated = false; // Сбрасываем флаг, что кнопки уже созданы
-  updateLinkCount(); // Обновляем количество ссылок
-
-  // Сбрасываем текст кнопки на "Создать кнопки"
+  clearButtons(); // Очищаем список при нажатии на кнопку "Мусорка"
+  updateLinkCount();
+  showNotification_del();
   const createButtonsButton = document.querySelector(".createButtons");
   createButtonsButton.textContent = "Создать кнопки";
+}
+
+function showNotification(notificationId) {
+  var notification = document.getElementById(notificationId);
+  notification.classList.add("show");
+
+  setTimeout(function () {
+    notification.classList.remove("show");
+  }, 2000);
+}
+
+function showNotification_copy() {
+  showNotification("copyNotification");
+}
+
+function showNotification_del() {
+  showNotification("clearNotification");
+}
+
+function showNotification_create() {
+  showNotification("createNotification");
+}
+
+function copyText() {
+  var textarea = document.getElementById("linksTextarea");
+
+  if (textarea.value.trim() !== "") {
+    textarea.select();
+    document.execCommand("copy");
+    showNotification_copy();
+  } else {
+    console.log("Нет текста для копирования.");
+  }
 }

@@ -3,11 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <title></title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
+
+    <title>C R E A T E</title>
   </head>
   <body>
+    <h5 class="version">v1.1</h5>
+
     <div id="container">
+      <ul class="notCreatedText" id="notCreatedText"></ul>
+
       <textarea
         id="linksTextarea"
         placeholder="Вставьте ссылки здесь..."
@@ -17,7 +23,7 @@
         Количество вставленных ссылок: <span id="linkCount">0</span>
       </div>
       <button class="button createButtons" onclick="createButtons()">
-        Создать кнопки
+        Создать
       </button>
 
       <button
@@ -26,13 +32,26 @@
         onclick="clearLinks()"
         title="Очистить ссылки"
       >
-        <img
-          src="https://img.icons8.com/metro/26/000000/trash.png"
-          alt="Мусорка"
-        />
+        <img src="./img/trash.png" alt="Мусорка" />
       </button>
+
+      <!-- Добавленная кнопка копирования -->
+      <button
+        id="copyButton"
+        class="button"
+        onclick="copyText()"
+        title="Копировать ссылки"
+      >
+        <img src="./img/copy.png" alt="Копировать" />
+      </button>
+      <div id="copyNotification" class="notification_copy">
+        Текст скопирован!
+      </div>
+      <div id="clearNotification" class="notification_del">Текст очищен!</div>
+      <div id="createNotification" class="notification_create">Готово!</div>
+
       <div id="buttonsContainer"></div>
     </div>
-    <script src="js/script.js"></script>
+    <script src="./js/script.js"></script>
   </body>
 </html>
