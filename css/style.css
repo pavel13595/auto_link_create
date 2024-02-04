@@ -1,185 +1,216 @@
-ul{
-list-style: none;
-
+ul {
+  list-style: none;
 }
 body {
-    font-family: Arial, sans-serif;
-   width: 1400px;
-   margin: auto;
+  font-family: Arial, sans-serif;
+  width: 1400px;
+  margin: auto;
 }
-
 #container {
-    
-    text-align: center;
-    width: 525px;
-    margin: 75px auto;
-    border: 1px solid #ccc;
-    padding: 25px;
-    box-sizing: border-box;
-    position: relative;
-    border-radius: 5px; 
+  text-align: center;
+  width: 525px;
+  margin: 75px auto;
+  border: 1px solid #ccc;
+  padding: 25px;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 5px; 
 }
-
 textarea {
-    width: calc(100% - 20px);
-    padding: 10px;
-    box-sizing: border-box;
-    margin-bottom: 0px;
-    resize: none; /* запрет изменения размера */
+  width: calc(100% - 20px);
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+  resize: none;
 }
-
 .button {
-    display: block;
-    width: 75%;
-    margin: auto;
-    padding: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    cursor: pointer;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+  display: block;
+  width: 75%;
+  margin: auto;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
 }
-
 .button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
-
 #clearButton {
-    position: absolute;
-    width: 10%;
-    top: 15px;
-    right: -10px;
-    cursor: pointer;
-    background: none;
-    border: none;
+  position: absolute;
+  width: 10%;
+  top: 22px;
+  right: -10px;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
-
 #clearButton img {
-    width: 20px;
-    height: 20px;
+  width: 25px;
+  height: 25px;
 }
-
-#clearButton img:hover {
-    filter: invert(20%) sepia(92%) saturate(2696%) hue-rotate(355deg)
-        brightness(94%) contrast(86%);
+.createButtons {
+  width: 50%;
+  margin: 20px auto;
+  padding: 15px;
 }
-.createButtons{
-    width: 50%;
-    margin: 20px auto;
-    padding: 15px;
-}
-
-
-
 .has-duplicates {
-    border: 2px solid red;
-  }
-.linkCount{
-padding: 10px;
-color: #b0b0b0;
-font-weight: 700;
-  }
-  .duplicate-info {
-    display: block;
-    padding: 10px 0 0 0;
-  }
-
-  #copyButton {
-    width: 10%;
-    cursor: pointer;
-    background: none;
-    border: none;
-      position: absolute;
-    top: 50px;
-    right: -10px;
-
+  border: 2px solid red;
 }
-
+.linkCount {
+  padding: 10px;
+  color: #b0b0b0;
+  font-weight: 700;
+}
+.duplicate-info {
+  display: block;
+  padding: 10px 0 0 0;
+}
+#copyButton {
+  width: 10%;
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 60px;
+  right: -10px;
+}
 #copyButton img {
-    width: 20px;
-    height: 20px;
+  width: 25px;
+  height: 25px;
 }
-#copyButton img:hover {
-    filter: invert(20%) sepia(92%) saturate(2696%) hue-rotate(220deg) brightness(120%) contrast(90%);
-}
-
 .notification_copy {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: rgba(0, 36, 166, 0.8); /* Зеленый цвет */
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 9999;
-    display: none; /* По умолчанию скрываем */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 36, 166, 0.8);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+  display: none;
 }
-
 .notification_copy.show {
-    display: block; /* Показываем уведомление */
+  display: block;
 }
 .notification_del {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: rgba(255, 0, 0, 0.8); /* Красный цвет */
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 9999;
-    display: none; /* По умолчанию скрываем */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+  display: none;
 }
-
 .notification_del.show {
-    display: block; /* Показываем уведомление */
+  display: block;
 }
 .notification_create {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: rgba(0, 128, 0, 0.8); /* Зеленый цвет */
-
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 9999;
-    display: none; /* По умолчанию скрываем */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 128, 0, 0.8);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+  display: none;
 }
-
 .notification_create.show {
-    display: block; /* Показываем уведомление */
+  display: block;
 }
 textarea:focus {
-    outline: none; /* Убирает контур фокуса */
+  outline: none;
 }
-.version{
-    margin: 0;
-    padding: 0;
-    color: #b0b0b0;
-    position: relative;
-
+.version {
+  margin: 0;
+  padding: 0;
+  color: #b0b0b0;
+  position: relative;
 }
-.notCreatedText{
-    padding: 5px;
-margin-top: -26px; 
-margin-left: -365px;
-word-wrap: break-word;
-overflow-wrap: break-word;
+.notCreatedText {
+  padding: 5px;
+  margin-top: -26px;
+  margin-left: -365px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   width: auto;
   max-width: 300px;
   position: absolute;
   text-align: left;
 }
-
-.notCreatedTextEl{
-    padding: 5px; 
-font-size: 12px;
-color: #b0b0b0;
-
+.notCreatedTextEl {
+  padding: 5px;
+  font-size: 12px;
+  color: #b0b0b0;
 }
-.missing-links-span{
-    font-size: 15px;
-    text-decoration: underline;
+.missing-links-span {
+  font-size: 15px;
+  text-decoration: underline;
+}
+#updateButton {
+  width: 10%;
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 22px;
+  right: 480px;
+}
+#updateButton img {
+  width: 25px;
+  height: 25px;
+}
+.dark-theme body {
+  background-color: #121212;
+}
+.dark-theme textarea {
+  background-color: #272727;
+  color: #c0c0c0;
+}
+.dark-theme {
+  background-color: #444;
+  color: #c0c0c0;
+}
+.dark-theme .button.clicked {
+  background-color: #8b0000;
+}
+.dark-theme #clearButton img,
+.dark-theme #updateButton img,
+.dark-theme #copyButton img,
+.dark-theme #themeIcon {
+  filter: brightness(0) invert(1);
+  
+}
+#themeToggle {
+  width: 10%;
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: absolute;
+  top: 60px;
+  right: 480px;
+}
+#themeToggle img {
+  width: 25px;
+  height: 25px;
+}
+#clearButton img:hover,
+#copyButton img:hover,
+#updateButton img:hover,
+#themeToggle img:hover {
+  filter: invert(20%) sepia(92%) saturate(2696%) hue-rotate(220deg) brightness(120%) contrast(90%);
+}
+#themeIcon:hover,
+#trashIcon:hover,
+#copyIcon:hover,
+#updateIcon:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+  filter: invert(100%) sepia(100%) saturate(100%) hue-rotate(50deg) brightness(50%) contrast(150%);
 }

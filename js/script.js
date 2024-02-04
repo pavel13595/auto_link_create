@@ -15,7 +15,7 @@ function updateLinkCount() {
   const linkCountElement = document.getElementById("linkCount");
   linkCountElement.textContent = links.length + "";
 
-  linkCountElement.style.color = duplicateRanges.length > 0 ? "red" : "green";
+  linkCountElement.style.color = duplicateRanges.length > 0 ? "red" : "#02c702";
 
   linksTextarea.style.border =
     text.trim() === ""
@@ -77,21 +77,19 @@ function clearButtons() {
   buttonsContainer.innerHTML = "";
   buttonCount = 0;
   buttonsCreated = false;
-  // Очищаем также элемент <ul> с текстом не созданных ссылок
   document.getElementById("notCreatedText").innerHTML = "";
 }
 
 function createButtons() {
-  clearButtons(); // Очищаем список перед созданием нового
+  clearButtons();
   const linksTextarea = document.getElementById("linksTextarea");
   const text = linksTextarea.value;
   const notCreatedTextElement = document.getElementById("notCreatedText");
-
   const buttonsContainer = document.getElementById("buttonsContainer");
   buttonCount = 0;
 
   const lines = text.split("\n");
-  let missingLinksSpanCreated = false; // Флаг для отслеживания создания span для пропущенных ссылок
+  let missingLinksSpanCreated = false;
 
   lines.forEach((line) => {
     if (line.trim() !== "") {
@@ -103,25 +101,23 @@ function createButtons() {
         buttonsContainer.appendChild(button);
         showNotification_create();
       } else {
-        // Проверяем, создан ли уже span для пропущенных ссылок
         if (!missingLinksSpanCreated) {
           const missingLinksSpan = document.createElement("span");
           missingLinksSpan.textContent = "Пропущенный текст:";
           missingLinksSpan.classList.add("missing-links-span");
           notCreatedTextElement.appendChild(missingLinksSpan);
-          missingLinksSpanCreated = true; // Устанавливаем флаг в true, чтобы создать только один span
+          missingLinksSpanCreated = true;
         }
 
         const listItem = document.createElement("li");
         listItem.textContent = `—  ${line}`;
-        listItem.classList.add("notCreatedTextEl"); // Присваиваем класс
-        notCreatedTextElement.appendChild(listItem); // Добавляем элемент <li> в существующий <ul>
+        listItem.classList.add("notCreatedTextEl");
+        notCreatedTextElement.appendChild(listItem);
       }
     }
   });
 
-  // Добавляем стили к элементу с классом "notCreatedText"
-  notCreatedTextElement.style.borderRadius = "5px"; // Добавляем стили для элемента
+  notCreatedTextElement.style.borderRadius = "5px";
   notCreatedTextElement.style.border = "1px solid #ccc";
 
   updateLinkCount();
@@ -160,7 +156,7 @@ function openLink(link) {
 
 function clearLinks() {
   document.getElementById("linksTextarea").value = "";
-  clearButtons(); // Очищаем список при нажатии на кнопку "Мусорка"
+  clearButtons();
   updateLinkCount();
   showNotification_del();
   const createButtonsButton = document.querySelector(".createButtons");
@@ -197,5 +193,39 @@ function copyText() {
     showNotification_copy();
   } else {
     console.log("Нет текста для копирования.");
+  }
+}
+
+function refreshPage() {
+  location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const themeIcon = document.getElementById("themeIcon");
+  const body = document.body;
+  const currentTime = new Date().getHours();
+
+  if (currentTime >= 7 && currentTime < 20) {
+    body.classList.remove("dark-theme");
+    themeIcon.src = "./svg/sun.svg";
+    themeIcon.alt = "Солнце";
+  } else {
+    body.classList.add("dark-theme");
+    themeIcon.src = "./svg/moon.svg";
+    themeIcon.alt = "Луна";
+  }
+});
+
+function toggleTheme() {
+  const body = document.body;
+  const themeIcon = document.getElementById("themeIcon");
+  body.classList.toggle("dark-theme");
+
+  if (body.classList.contains("dark-theme")) {
+    themeIcon.src = "./svg/moon.svg";
+    themeIcon.alt = "Луна";
+  } else {
+    themeIcon.src = "./svg/sun.svg";
+    themeIcon.alt = "Солнце";
   }
 }
