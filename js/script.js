@@ -68,7 +68,7 @@ document.getElementById("linksTextarea").addEventListener("input", function () {
   if (this.value.trim() === "") {
     clearButtons();
     const createButtonsButton = document.querySelector(".createButtons");
-    createButtonsButton.textContent = "Создать кнопки";
+    createButtonsButton.textContent = "Создать";
   }
 });
 
@@ -160,7 +160,7 @@ function clearLinks() {
   updateLinkCount();
   showNotification_del();
   const createButtonsButton = document.querySelector(".createButtons");
-  createButtonsButton.textContent = "Создать кнопки";
+  createButtonsButton.textContent = "Создать";
 }
 
 function showNotification(notificationId) {
