@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const body = document.body;
   const currentTime = new Date().getHours();
 
-  if (currentTime >= 7 && currentTime < 20) {
+  if (currentTime >= 7 && currentTime < 19) {
     body.classList.remove("dark-theme");
     themeIcon.src = "./svg/sun.svg";
     themeIcon.alt = "Солнце";
