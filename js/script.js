@@ -15,19 +15,26 @@ function updateLinkCount() {
   const linkCountElement = document.getElementById("linkCount");
   linkCountElement.textContent = links.length + "";
 
-  linkCountElement.style.color = duplicateRanges.length > 0 ? "red" : "#02c702";
+  linkCountElement.style.color =
+    duplicateRanges.length > 0 ? "#D82621" : "#34db06";
 
   linksTextarea.style.border =
     text.trim() === ""
       ? "2px solid black"
       : duplicateRanges.length > 0
-      ? "2px solid red"
-      : "2px solid #09af4c";
+      ? "2px solid #D82621"
+      : "2px solid #34db06";
 
   const duplicateSpan = document.createElement("span");
   duplicateSpan.textContent = duplicateText;
   duplicateSpan.classList.add("duplicate-info");
   linkCountElement.appendChild(duplicateSpan);
+
+  const statusIcon = document.getElementById("statusIcon");
+  statusIcon.src =
+    links.length > 0 && duplicateRanges.length > 0
+      ? "./svg/stop.svg"
+      : "./svg/done.svg";
 }
 
 function extractLinks(text) {
@@ -229,3 +236,18 @@ function toggleTheme() {
     themeIcon.alt = "Солнце";
   }
 }
+
+function updateClock() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+  const clockElement = document.getElementById("clock");
+  clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+// Вызываем функцию один раз, чтобы часы обновились сразу после загрузки страницы
+updateClock();
+
+// Обновляем часы каждую секунду
+setInterval(updateClock, 1000);

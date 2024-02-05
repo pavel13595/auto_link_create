@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      data-href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;display=swap"
+    />
     <title>C R E A T E</title>
   </head>
   <body>
-    <h5 class="version">v1.2</h5>
+    <div class="widget">
+      <h5 class="version">v1.2</h5>
+      <div class="clock" id="clock"></div>
+    </div>
+
     <div id="container">
       <ul class="notCreatedText" id="notCreatedText"></ul>
+      <div class="statusIconContainer" id="statusIconContainer">
+        <img class="statusIcon" id="statusIcon" src="" alt="" />
+      </div>
       <textarea
         spellcheck="false"
         id="linksTextarea"
@@ -39,6 +50,7 @@
       <button id="themeToggle" onclick="toggleTheme()" title="Сменить тему">
         <img id="themeIcon" src="./svg/light_theme.svg" alt="Сменить тему" />
       </button>
+
       <div id="copyNotification" class="notification_copy">
         Текст скопирован!
       </div>
